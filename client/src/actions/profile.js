@@ -65,7 +65,7 @@ export const createProfile = (formData, history, edit=false) => async dispatch =
 
 // Add Experience
 
-export const addExperience = (fromData, history) => async dispatch =>{
+export const addExperience = (formData, history) => async dispatch =>{
 
     try {
         const config = {
@@ -100,7 +100,7 @@ export const addExperience = (fromData, history) => async dispatch =>{
 
 // Add Education
 
-export const addEducation = (formData, history) => dispatch =>{
+export const addEducation = (formData, history) => async dispatch =>{
 
     try {
         const config = {
