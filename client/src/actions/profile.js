@@ -132,3 +132,43 @@ export const addEducation = (formData, history) => async dispatch =>{
 };
 
 
+
+// Delete experience
+
+export const deleteExperience = id => async dispatch => {
+
+    try {
+        const res = await axios.delete(`http://localhost:5001/api/profile/experience/${id}`);
+        dispatch({
+            type:UPDATE_PROFILE,
+            payload:res.data
+        });
+        dispatch(setAlert('Experience Removed', 'danger'));
+    } catch (err) {
+        dispatch({
+            type:PROFILE_ERROR,
+            payload:{msg:err.response.statusText, status:err.response.status}
+        });
+    }
+
+};
+
+// Delete education
+
+export const deleteEducation = id => async dispatch => {
+
+    try {
+        const res = await axios.delete(`http://localhost:5001/api/profile/education/${id}`);
+        dispatch({
+            type:UPDATE_PROFILE,
+            payload:res.data
+        });
+        dispatch(setAlert('Education Removed', 'danger'));
+    } catch (err) {
+        dispatch({
+            type:PROFILE_ERROR,
+            payload:{msg:err.response.statusText, status:err.response.status}
+        });
+    }
+
+};
