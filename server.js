@@ -20,6 +20,7 @@ app.use((req, res, next) => {
       "Access-Control-Allow-Methods",
       "GET, POST, PATCH, PUT, DELETE, OPTIONS"
     );
+    // res.setHeader('Access-Control-Allow-Credentials', true);
     next();
 });
 app.get('/', (req,res) => res.send('API Running'));

@@ -32,12 +32,12 @@ export const getPosts = () => async dispatch => {
 
 // Add Like
 
-export const addLike = postId => async dispatch => {
+export const addLike = id => async dispatch => {
     try {
-        const res = await axios.put(`http://localhost:5001/api/post/like/${postId}`);
+        const res = await axios.put(`http://localhost:5001/api/post/like/${id}`);
         dispatch({
             type:UPDATE_LIKES,
-            payload:{postId, likes:res.data}
+            payload:{id, likes:res.data}
         });
     } catch (err) {
         dispatch({
@@ -50,12 +50,12 @@ export const addLike = postId => async dispatch => {
 
 // remove Like
 
-export const removeLike = postId => async dispatch => {
+export const removeLike = id => async dispatch => {
     try {
-        const res = await axios.put(`http://localhost:5001/api/post/unlike/${postId}`);
+        const res = await axios.put(`http://localhost:5001/api/post/unlike/${id}`);
         dispatch({
             type:UPDATE_LIKES,
-            payload:{postId, likes:res.data}
+            payload:{id, likes:res.data}
         });
     } catch (err) {
         dispatch({
@@ -129,14 +129,14 @@ export const getPost = id => async dispatch => {
 
 // add comment
 
-export const addComment = (formData, id) => async dispatch => {
+export const addComment = (postId, formData) => async dispatch => {
     const config = {
         headers:{
             'Content-Type':'application/json'
         }
     }
     try {
-        const res = await axios.post(`http://localhost:5001/api/post/comment/${id}`, formData, config);
+        const res = await axios.post(`http://localhost:5001/api/post/comment/${postId}`, formData, config);
         dispatch({
             type:ADD_COMMENT,
             payload:res.data
@@ -153,10 +153,10 @@ export const addComment = (formData, id) => async dispatch => {
 
 // delete comment
 
-export const deleteComment = (id,commentId) => async dispatch => {
+export const deleteComment = (postId,commentId) => async dispatch => {
 
     try {
-        const res = await axios.delete(`http://localhost:5001/api/post/comment/${id}/${commentId}`);
+        await axios.delete(`http://localhost:5001/api/post/comment/${postId}/${commentId}`);
         dispatch({
             type:REMOVE_COMMENT,
             payload:commentId
