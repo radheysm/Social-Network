@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
-import deleteComment from '../../actions/post';
+import {deleteComment} from '../../actions/post';
 const CommentItem = ({
     postId,
     comment:{
@@ -37,7 +37,7 @@ Posted on <Moment format = 'YYYY/MM/DD'>{date}</Moment>
     
 
 CommentItem.propTypes = {
-    postId : PropTypes.number.isRequired,
+    postId : PropTypes.string.isRequired,
     comment:PropTypes.object.isRequired,
     auth:PropTypes.object.isRequired,
     deleteComment:PropTypes.func.isRequired
