@@ -5,13 +5,11 @@ import {getPosts} from '../../actions/post';
 import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
-import {getCurrentProfile} from '../../actions/profile';
 
-const Posts = ({post:{posts,loading}, profile:{profile}, getPosts,getCurrentProfile}) => {
+const Posts = ({post:{posts,loading}, getPosts}) => {
     useEffect(() =>{
         getPosts();
-        getCurrentProfile();
-    },[getPosts,getCurrentProfile]);
+    },[getPosts]);
     return loading ? <Spinner/> : (<Fragment>
 
         <h1 className="large text-primary">
@@ -24,7 +22,7 @@ const Posts = ({post:{posts,loading}, profile:{profile}, getPosts,getCurrentProf
         <PostForm/>
         <div className="posts">
             {posts.map(post => (
-                <PostItem key = {post._id} post = {post} profile={profile}/>
+                <PostItem key = {post._id} post = {post}/>
             ))}
         </div>
         {/* <h1 className="large text-primary">
@@ -45,13 +43,11 @@ const Posts = ({post:{posts,loading}, profile:{profile}, getPosts,getCurrentProf
 
 Posts.propTypes = {
     getPosts:PropTypes.func.isRequired,
-    post:PropTypes.object.isRequired,
-    getCurrentProfile:PropTypes.func.isRequired,
-    profile:PropTypes.object.isRequired,
+    post:PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
     post:state.post,
     profile:state.profile
 });
 
-export default connect(mapStateToProps, {getPosts,getCurrentProfile})(Posts);
+export default connect(mapStateToProps, {getPosts})(Posts);
