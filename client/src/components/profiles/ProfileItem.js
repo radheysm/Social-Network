@@ -7,11 +7,12 @@ const ProfileItem = ({profile:{
     status,
     company,
     location,
-    skills
+    skills,
+    profileImage
 }}) => {
     return (
         <div className="profile bg-light">
-           <img src={avatar} alt="" className="round-img"/>
+           <img src={`http://localhost:5001/${profileImage}`} alt="" className="round-img"/>
            <div>
                <h2>{name}</h2>
                <p>{status} {company && <span>at {company}</span>}</p>
