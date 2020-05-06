@@ -4,9 +4,6 @@ import {Link} from 'react-router-dom';
 import Moment from 'react-moment';
 import {connect} from 'react-redux';
 import {addLike, removeLike, deletePost} from '../../actions/post';
-
-
-
 const PostItem = ({
   addLike, 
   removeLike, 
@@ -14,11 +11,7 @@ const PostItem = ({
   auth, 
   post:{
     _id, text,name,avatar,user,likes,comments,date,postImage
-},showActions,
-profile:{
-  profileImage
-}
-
+},showActions
 }) => {
   console.log(postImage);
   return (
@@ -27,8 +20,8 @@ profile:{
   <Link to={`/profile/${user}`}>
     <img
       className="round-img"
-      src={`http://localhost:5001/${profileImage}`}
-      alt="Loading..."
+      src={avatar}
+      alt=""
     />
     <h4>{name}</h4>
   </Link>
@@ -86,7 +79,6 @@ PostItem.propTypes = {
    addLike:PropTypes.func.isRequired,
    removeLike:PropTypes.func.isRequired,
    deletePost:PropTypes.func.isRequired,
-   profile:PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state =>({
