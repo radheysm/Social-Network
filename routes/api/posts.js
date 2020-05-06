@@ -5,16 +5,41 @@ const auth = require('../../middleware/auth');
 const Profile = require('../../models/Profile');
 const Post = require('../../models/Post');
 const User = require('../../models/User');
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads');
+    },
+    filename:function(req, file, cb){
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) =>{
+      if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+          cb(null,true);
+      }
+      else{
+          cb(null, false);
+      }
+};
+
+const upload = multer({
+    storage:storage, 
+    limits:{
+    fileSize:1024 * 1024 * 5 
+     },
+     fileFilter:fileFilter
+});
 
 // @route     POST api/post
 // @desc      Create a Post
 // @access    Private
 
-router.post('/',[auth, [
-     check('text','Text is required')
-     .not()
-     .isEmpty()
-]], async (req, res)=> {
+router.post('/',[auth, upload.single('postImage')], async (req, res)=> {
+    // console.log(req.file);
     const errors = validationResult(req);
     if(!errors.isEmpty()){
         return res.status(400).json({errors:errors.array()});
@@ -25,7 +50,8 @@ router.post('/',[auth, [
         text : req.body.text,
         name : user.name,
         avatar : user.avatar,
-        user: req.user.id
+        user: req.user.id,
+        postImage:req.file.path
     });
 
 
