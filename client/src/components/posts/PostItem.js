@@ -4,9 +4,6 @@ import {Link} from 'react-router-dom';
 import Moment from 'react-moment';
 import {connect} from 'react-redux';
 import {addLike, removeLike, deletePost} from '../../actions/post';
-
-
-
 const PostItem = ({
   addLike, 
   removeLike, 
@@ -15,7 +12,6 @@ const PostItem = ({
   post:{
     _id, text,name,avatar,user,likes,comments,date,postImage
 },showActions
-
 }) => {
   console.log(postImage);
   return (
@@ -32,7 +28,7 @@ const PostItem = ({
 </div>
 <div>
   <p className="my-1">
-    <img src={`http://localhost:5001/${postImage}`} alt="Loading...."/>
+    <img className = "post-item-img" src={`http://localhost:5001/${postImage}`} alt="Loading...."/>
   </p>
   <p className="my-1">
     {text}

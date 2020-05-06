@@ -6,7 +6,7 @@ import Spinner from '../layout/Spinner';
 import PostItem from './PostItem';
 import PostForm from './PostForm';
 
-const Posts = ({post:{posts,loading},getPosts}) => {
+const Posts = ({post:{posts,loading}, getPosts}) => {
     useEffect(() =>{
         getPosts();
     },[getPosts]);
@@ -46,7 +46,8 @@ Posts.propTypes = {
     post:PropTypes.object.isRequired
 }
 const mapStateToProps = state => ({
-    post:state.post
+    post:state.post,
+    profile:state.profile
 });
 
 export default connect(mapStateToProps, {getPosts})(Posts);
