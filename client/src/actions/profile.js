@@ -156,7 +156,6 @@ export const addExperience = (formData, history) => async dispatch =>{
 
 };
 
-
 // Add Education
 
 export const addEducation = (formData, history) => async dispatch =>{
