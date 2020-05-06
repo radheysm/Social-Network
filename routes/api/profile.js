@@ -7,6 +7,36 @@ const User = require('../../models/User');
 const Post = require('../../models/Post');
 const {check, validationResult} = require('express-validator');
 const config = require('config');
+const multer = require('multer');
+
+
+const storage = multer.diskStorage({
+    destination: function(req, file, cb){
+        cb(null, './uploads');
+    },
+    filename:function(req, file, cb){
+        cb(null, new Date().toISOString() + file.originalname);
+    }
+});
+
+const fileFilter = (req, file, cb) =>{
+      if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+          cb(null,true);
+      }
+      else{
+          cb(null, false);
+      }
+};
+
+const upload = multer({
+    storage:storage, 
+    limits:{
+    fileSize:1024 * 1024 * 5 
+     },
+     fileFilter:fileFilter
+});
+
+
 // @route     GET api/profile/me
 // @desc      GET current user's profile
 // @access    Private
@@ -62,7 +92,6 @@ router.post('/', [
             profileFields.skills = skills.toString().split(',').map(skill => skill.trim());
 
         }
-
         // Build Social Objects
         profileFields.social = {};
         if(youtube) profileFields.social.youtube = youtube;
@@ -216,6 +245,27 @@ router.put('/experience', [auth,
         res.status(500).send("Server Error");
     }
 });
+
+// @route     PUT api/profile/img
+// @desc      Add profile Image
+// @access    Private
+
+router.post('/img', [auth, upload.single('profileImage')
+  ], async (req,res)=>{
+      try {
+          const profile = await Profile.findOne({user:req.user.id});
+        //   console.log("1");
+        //   console.log(profile);
+        //   console.log(req.file.path);
+        //   console.log("2");
+          profile.profileImage = req.file.path;
+          await profile.save();
+          res.json(profile);
+      } catch (err) {
+          console.error(err.message);
+          res.status(500).send("Server Error");
+      }
+  });
 
 
 // @route     DELETE api/profile/experince/:exp_id
