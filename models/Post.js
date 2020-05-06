@@ -15,6 +15,10 @@ const postSchema = new mongoose.Schema({
   avatar: {
     type: String,
   },
+  postImage: {
+    type: String,
+    required:true
+  },
   likes: [
     {
       user: {
@@ -45,10 +49,6 @@ const postSchema = new mongoose.Schema({
       },
     },
   ],
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
   date: {
     type: Date,
     default: Date.now,
