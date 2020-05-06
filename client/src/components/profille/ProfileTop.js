@@ -7,6 +7,7 @@ const ProfileTop = ({profile:{
     location,
     website,
     social,
+    profileImage,
     user:{
         name,avatar
     }
@@ -15,8 +16,8 @@ const ProfileTop = ({profile:{
         <div className="profile-top bg-primary p-2">
           <img
             className="round-img my-1"
-            src={avatar}
-            alt=""
+            src={`http://localhost:5001/${profileImage}`}
+            alt={avatar}
           />
           <h1 className="large">{name}</h1>
     <p className="lead">{status} {company && <span>at {company}</span>}</p>
