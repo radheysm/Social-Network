@@ -13,6 +13,9 @@ export const DashboardActions = () => {
         <Link to='/add-education' className='btn btn-light'>
           <i className='fas fa-graduation-cap text-primary'></i> Add Education
         </Link>
+        <Link to = '/add-profileImg' className =  'btn btn-light'>
+          <i className="fas fa-camera text-primary"></i> Upload Profile Image 
+        </Link>
       </div>
     </Fragment>
   );
