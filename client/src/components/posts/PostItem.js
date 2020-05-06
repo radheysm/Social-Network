@@ -14,7 +14,10 @@ const PostItem = ({
   auth, 
   post:{
     _id, text,name,avatar,user,likes,comments,date,postImage
-},showActions
+},showActions,
+profile:{
+  profileImage
+}
 
 }) => {
   console.log(postImage);
@@ -24,15 +27,15 @@ const PostItem = ({
   <Link to={`/profile/${user}`}>
     <img
       className="round-img"
-      src={avatar}
-      alt=""
+      src={`http://localhost:5001/${profileImage}`}
+      alt="Loading..."
     />
     <h4>{name}</h4>
   </Link>
 </div>
 <div>
   <p className="my-1">
-    <img src={`http://localhost:5001/${postImage}`} alt="Loading...."/>
+    <img className = "post-item-img" src={`http://localhost:5001/${postImage}`} alt="Loading...."/>
   </p>
   <p className="my-1">
     {text}
@@ -83,6 +86,7 @@ PostItem.propTypes = {
    addLike:PropTypes.func.isRequired,
    removeLike:PropTypes.func.isRequired,
    deletePost:PropTypes.func.isRequired,
+   profile:PropTypes.object.isRequired,
 }
 
 const mapStateToProps = state =>({
