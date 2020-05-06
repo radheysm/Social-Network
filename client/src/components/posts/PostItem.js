@@ -5,15 +5,21 @@ import Moment from 'react-moment';
 import {connect} from 'react-redux';
 import {addLike, removeLike, deletePost} from '../../actions/post';
 
+
+
 const PostItem = ({
   addLike, 
   removeLike, 
   deletePost, 
   auth, 
   post:{
-    _id, text,name,avatar,user,likes,comments,date
+    _id, text,name,avatar,user,likes,comments,date,postImage
 },showActions
-}) => <div className="post bg-white p-1 my-1">
+
+}) => {
+  console.log(postImage);
+  return (
+    <div className="post bg-white p-1 my-1">
 <div>
   <Link to={`/profile/${user}`}>
     <img
@@ -25,6 +31,9 @@ const PostItem = ({
   </Link>
 </div>
 <div>
+  <p className="my-1">
+    <img src={`http://localhost:5001/${postImage}`} alt="Loading...."/>
+  </p>
   <p className="my-1">
     {text}
   </p>
@@ -61,6 +70,8 @@ Discussion {comments.length>0 && (
  
 </div>
 </div>
+  );
+  }
 
 PostItem.defaultProps = {
     showActions: true
@@ -71,7 +82,7 @@ PostItem.propTypes = {
    auth:PropTypes.object.isRequired,
    addLike:PropTypes.func.isRequired,
    removeLike:PropTypes.func.isRequired,
-   deletePost:PropTypes.func.isRequired
+   deletePost:PropTypes.func.isRequired,
 }
 
 const mapStateToProps = state =>({
